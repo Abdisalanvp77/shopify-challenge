@@ -88,7 +88,7 @@ export class App extends Component {
 
     axios
         .get(
-          `http://www.omdbapi.com/?s=${this.state.value}&page=${2}&type=movie&apikey=${API_KEY}`)
+          `https://www.omdbapi.com/?s=${this.state.value}&page=${2}&type=movie&apikey=${API_KEY}`)
         .then(res => {
           
           return res.data;
@@ -146,21 +146,15 @@ export class App extends Component {
               <ul>
                 {this.state.movies.length > 0 ? (
                     this.state.movies[0].map(movie => 
-              
-                      <div className="field has-addons">
-                        
-                        <div className="control">
-                          <li key={movie}>{movie.Title}({movie.Year})<br/></li>
-                        </div>
-                        <div className="control">
-                          <button
-                            className="button is-info"
-                            onClick={() => this.handleNomination(movie)}
-                            disabled={this.state.nominations.includes(movie)}
-                          >
-                            Nominate
-                          </button>
-                        </div>
+                      <div className="field">
+                        <li key={movie}>{movie.Title}({movie.Year})<br/></li>
+                        <button
+                          className="btn btn-success"
+                          onClick={() => this.handleNomination(movie)}
+                          disabled={this.state.nominations.includes(movie)}
+                        >
+                          Nominate
+                        </button>
                       </div>
                     )
                   ) : (
@@ -187,18 +181,14 @@ export class App extends Component {
                 {this.state.nominations.length > 0 ? (
                     this.state.nominations.map(movie => 
               
-                      <div className="field has-addons">
-                        <div className="control">
+                      <div className="field">
                           <li key={movie}>{movie.Title}({movie.Year})<br/></li>
-                        </div>
-                        <div className="control">
                           <button
-                            className="button is-info"
+                            className="btn btn-danger"
                             onClick={() => this.handleRemoveNomination(movie)}
                           >
                             Remove
                           </button>
-                        </div>
                       </div>
                     )
                   ) : (
