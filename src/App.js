@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import Banner from 'react-js-banner';
+import Loader from 'react-loader-spinner';
 import "./App.css";
 /**API key for accessing omdbapi */
 const API_KEY  = "5380268b";
@@ -85,12 +86,16 @@ export class App extends Component {
     this.setState(
       Object.assign({}, this.state, {isLoading: true, movies: [], searched: true})
     );
-
+    this.setState({
+      isLoading: true
+    });
     axios
         .get(
           `https://www.omdbapi.com/?s=${this.state.value}&page=${2}&type=movie&apikey=${API_KEY}`)
         .then(res => {
-          
+          this.setState({
+            isLoading: false
+          });
           return res.data;
         })
         .then(res => {
@@ -116,10 +121,8 @@ export class App extends Component {
     return (
       <div className="main">
         <div className="titles">
-          <div className="container">
             <h1 className="title">Movie finder</h1>
             <h2 className="subtitle">Find your next favourite movie :)</h2>
-          </div>
         </div>
         <div className="container">
           <div className="searchbox">
@@ -140,6 +143,7 @@ export class App extends Component {
           </div>
           <div className="content">
             <div className="search-results">
+              
             {this.state.movies.length > 0 ? (
               <h3 className="title">Search result for "{this.state.value}"</h3>) : ""
             }
@@ -157,7 +161,9 @@ export class App extends Component {
                         </button>
                       </div>
                     )
-                  ) : (
+                  ) : 
+                  (
+                    this.state.isLoading ? <Loader type="Oval" color="#f4343f" height="100" width="100" /> : 
                     <p className="p">
                       Couldn't find any movie. Please search again using
                       another search criteria.

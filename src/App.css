@@ -17,9 +17,17 @@
   align-content: center;
 }
 
+.field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  margin: 8px;
+}
+.btn {
+  margin-left: 12px;
+}
 .nominations, .search-results {
-  float: left;
-  margin-right:5px;
   margin: auto;
 }
 
